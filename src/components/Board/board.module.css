@@ -1,0 +1,36 @@
+.board {
+  background-color: rgb(215, 204, 204);
+  min-width: 20rem;
+  border: 0.1px solid black;
+  margin-right: 2px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board_header {
+  font-weight: 600;
+  font-size: 1.3rem;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.option_card_wrapper {
+  position: relative;
+  width: 20px;
+  height: 20px;
+}
+.option_card {
+  position: absolute;
+  bottom: 6px;
+  right: 80px;
+  z-index: 5;
+}
+.card_body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-height: 540px;
+  overflow-y: auto;
+}
