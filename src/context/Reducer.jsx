@@ -1,5 +1,4 @@
 export const boardReducer = (state, action) => {
-  console.log(state);
   switch (action.type) {
     case "ADD_BOARD":
       localStorage.setItem(
@@ -61,12 +60,6 @@ export const cardReducer = (state, action) => {
         },
       ];
     case "REMOVE_CARD":
-      console.log(
-        "rem",
-        JSON.stringify([
-          ...state.filter((card) => card.id !== action.payload.id),
-        ])
-      );
       localStorage.setItem(
         "cards",
         JSON.stringify([
@@ -79,8 +72,6 @@ export const cardReducer = (state, action) => {
         "cards",
         JSON.stringify([
           ...state.map((card) => {
-            console.log("Set", action.payload.title);
-            console.log(card.id === action.payload.id);
             if (card.id === action.payload.id) {
               card.title = action.payload.title;
             }
@@ -92,6 +83,36 @@ export const cardReducer = (state, action) => {
         ...state.map((card) => {
           if (card.id === action.payload.id) {
             card.title = action.payload.title;
+          }
+          return card;
+        }),
+      ];
+    case "MOVE_CARD":
+      var indexCid = state.findIndex((card) => card.id === action.payload.cid);
+      var indexTargetCid = state.findIndex(
+        (card) => card.id === action.payload.targetCard
+      );
+      var tempState = [...state];
+      var value = tempState[indexCid];
+
+      tempState.splice(indexCid, 1);
+
+      tempState.splice(indexTargetCid, 0, value);
+      localStorage.setItem(
+        "cards",
+        JSON.stringify([
+          ...tempState.map((card) => {
+            if (card.id === action.payload.cid) {
+              card.bid = action.payload.targetBoard;
+            }
+            return card;
+          }),
+        ])
+      );
+      return [
+        ...tempState.map((card) => {
+          if (card.id === action.payload.cid) {
+            card.bid = action.payload.targetBoard;
           }
           return card;
         }),

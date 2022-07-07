@@ -5,7 +5,7 @@ import { useAppContext } from "./hooks/useAppContext.jsx";
 import { Layout, Button, Input } from "antd";
 import Board from "./components/Board/Board.jsx";
 
-const { Header, Footer } = Layout;
+const { Header } = Layout;
 
 function App() {
   const [boardTitle, setBoardTitle] = useState("");

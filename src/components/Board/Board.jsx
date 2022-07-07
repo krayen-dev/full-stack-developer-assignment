@@ -12,7 +12,6 @@ const Board = ({ id, title, deleteBoard }) => {
   const [task, setTask] = useState("");
   const { cardState, cardDispatch } = useAppContext();
 
-  console.log("Board");
   const addTask = () => {
     cardDispatch({
       type: "ADD_CARD",
@@ -33,7 +32,6 @@ const Board = ({ id, title, deleteBoard }) => {
     });
   };
   const editTask = (cid, data) => {
-    console.log(data);
     cardDispatch({
       type: "EDIT_CARD",
       payload: {
@@ -59,18 +57,30 @@ const Board = ({ id, title, deleteBoard }) => {
           )}
         </div>
       </div>
-      <div className={styles.card_body}>
+      <div
+        className={styles.board_body}
+        // onDragEnter={(cid, bid) => {
+        //   console.log("ehnter", cid, bid);
+        //   setTarget((prev) => {
+        //     return {
+        //       ...prev,
+        //       bid: id,
+        //     };
+        //   });
+        // }}
+      >
         {cardState.map((card) => {
-          console.log(card.bid, id);
           if (card.bid === id) {
             return (
               <Task
                 key={card.id}
                 id={card.id}
                 title={card.title}
-                bid={card.id}
+                bid={id}
                 deleteTask={deleteTask}
                 editTask={editTask}
+                // handleEnter={handleEnter}
+                // handleEnd={handleEnd}
               />
             );
           }
@@ -82,7 +92,6 @@ const Board = ({ id, title, deleteBoard }) => {
               placeholder="Enter task"
               value={task}
               onInput={(e) => {
-                console.log(e.target.value);
                 setTask(e.target.value);
               }}
             />

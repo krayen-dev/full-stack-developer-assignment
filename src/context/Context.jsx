@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { createContext, useReducer } from "react";
 import { boardReducer, cardReducer } from "./Reducer.jsx";
 
@@ -29,17 +29,19 @@ export const AppContext = createContext();
 const AppProvider = (props) => {
   const [boardState, boardDispatch] = useReducer(boardReducer, defaultBoards);
   const [cardState, cardDispatch] = useReducer(cardReducer, defaultCards);
+  const [target, setTarget] = useState({
+    id: "",
+    bid: "",
+  });
+
   useEffect(() => {
-    console.log("useEff");
     if (localStorage.getItem("cards")) {
-      console.log("cards set");
       cardDispatch({
         type: "UPDATE_FROM_LOCALSTORAGE",
         payload: { data: JSON.parse(localStorage.getItem("cards")) },
       });
     }
     if (localStorage.getItem("boards")) {
-      console.log("boards set");
       boardDispatch({
         type: "UPDATE_FROM_LOCALSTORAGE",
         payload: { data: JSON.parse(localStorage.getItem("boards")) },
@@ -48,11 +50,17 @@ const AppProvider = (props) => {
       boardDispatch({ type: "UPDATE_TO_LOCALSTORAGE" });
     }
   }, []);
-  console.log("cont", cardState);
-  console.log("board state", boardState);
+
   return (
     <AppContext.Provider
-      value={{ boardState, boardDispatch, cardState, cardDispatch }}
+      value={{
+        boardState,
+        boardDispatch,
+        cardState,
+        cardDispatch,
+        target,
+        setTarget,
+      }}
     >
       {props.children}
     </AppContext.Provider>
