@@ -48,14 +48,37 @@ The duration to complete this test shall be five days from the date of forking t
 ## To start the project
 
 ### Frontend
-1. npm i / yarn install
-2. npm dev/ yarn dev
+``` npm i / yarn install```
+
+```npm dev/ yarn dev```
    
 ### Backend
 
-1. npm i / yarn install
-2. npm dev/ yarn dev
+```npm i / yarn install```
+
+```npm dev/ yarn dev```
 
 Note: Run all the SQL commands in /server/db/db.sql before starting the backend server.
 
+## Screenshots
 
+<br/>
+
+<div align="left" width="100%">
+    <img width="50%" src="client/src/assets/demo1.png"> 
+</div>
+
+<br/>
+
+
+<div align="left" width="100%">
+    <img width="50%" src="client/src/assets/demo2.png"> 
+</div>
+
+<!-- ![1](client/src/assets/demo3.png) -->
+<br/>
+
+
+<p align="left" width="100%">
+    <img width="15%" src="client/src/assets/demo3.png"> 
+</p>
