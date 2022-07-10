@@ -43,8 +43,19 @@ Build a Kanban board web application. The application should communicate with a 
 
 The duration to complete this test shall be five days from the date of forking the repository.
 
-### R Varshith Kumar
+# R Varshith Kumar
 
-## Technologies
+## To start the project
 
-ReactJS, Node+Express, Antd ,Mongodb
+### Frontend
+1. npm i / yarn install
+2. npm dev/ yarn dev
+   
+### Backend
+
+1. npm i / yarn install
+2. npm dev/ yarn dev
+
+Note: Run all the SQL commands in /server/db/db.sql before starting the backend server.
+
+
