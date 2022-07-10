@@ -9,39 +9,33 @@ const Task = ({ id, title, bid, editTask, deleteTask }) => {
   const [edit, setEdit] = useState(false);
   const [taskValue, setTaskValue] = useState(title);
 
-  const { cardDispatch, target, setTarget } = useAppContext();
+  const { target, setTarget } = useAppContext();
   const inputEl = useRef();
 
   const onButtonClick = () => {
     setEdit((prev) => !prev);
   };
-  const handleEnd = (cid, bid) => {
-    cardDispatch({
-      type: "MOVE_CARD",
-      payload: {
-        cid: cid,
-        bid: bid,
-        targetBoard: target.bid,
-        targetCard: target.cid,
-      },
-    });
-  };
   const handleEnter = (cid, bid) => {
+    if (cid === target.id) return;
     setTarget({
       cid: cid,
       bid: bid,
     });
   };
-  console.log("target", target);
 
   return (
     <>
       <Card
         draggable
-        style={{ cursor: "pointer", borderRadius: "0.4rem", padding: "0.2rem" }}
+        style={{
+          cursor: "pointer",
+          border: "1px solid #d1d0d0",
+        }}
         onDragEnter={() => handleEnter(id, bid)}
-        onDragEnd={() => handleEnd(id, bid)}
-        onClick={() => console.log(id, bid)}
+        onDragStart={(e) => {
+          e.dataTransfer.setData("Text", JSON.stringify({ id, bid, title }));
+          console.log(JSON.stringify({ id, bid, title }));
+        }}
         actions={
           edit
             ? [

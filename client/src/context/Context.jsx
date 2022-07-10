@@ -1,27 +1,11 @@
 import { useEffect, useState } from "react";
 import { createContext, useReducer } from "react";
+import axios from "../api/axios.js";
 import { boardReducer, cardReducer } from "./Reducer.jsx";
 
 //Four default sections - Backlogs, Planned, In Progress and Completed.
 
-const defaultBoards = [
-  {
-    id: parseInt(Date.now() * Math.random()),
-    title: "Planned",
-  },
-  {
-    id: parseInt(Date.now() * Math.random()),
-    title: "In Progress",
-  },
-  {
-    id: parseInt(Date.now() * Math.random()),
-    title: "Backlogs",
-  },
-  {
-    id: parseInt(Date.now() * Math.random()),
-    title: "Completed",
-  },
-];
+const defaultBoards = [];
 let defaultCards = [];
 
 export const AppContext = createContext();
@@ -35,20 +19,24 @@ const AppProvider = (props) => {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("cards")) {
-      cardDispatch({
-        type: "UPDATE_FROM_LOCALSTORAGE",
-        payload: { data: JSON.parse(localStorage.getItem("cards")) },
-      });
-    }
-    if (localStorage.getItem("boards")) {
-      boardDispatch({
-        type: "UPDATE_FROM_LOCALSTORAGE",
-        payload: { data: JSON.parse(localStorage.getItem("boards")) },
-      });
-    } else {
-      boardDispatch({ type: "UPDATE_TO_LOCALSTORAGE" });
-    }
+    const fetchData = async () => {
+      try {
+        const response1 = await axios.get("/api/boards");
+        const response2 = await axios.get("/api/cards");
+        boardDispatch({
+          type: "UPDATE_FROM_DB",
+          payload: { data: response1.data.data },
+        });
+        cardDispatch({
+          type: "UPDATE_FROM_DB",
+          payload: { data: response2.data.data },
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (
