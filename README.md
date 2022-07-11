@@ -50,13 +50,13 @@ The duration to complete this test shall be five days from the date of forking t
 ### Frontend
 ``` npm i / yarn install```
 
-```npm dev/ yarn dev```
+```npm run dev/ yarn dev```
    
 ### Backend
 
-```npm i / yarn install```
+```npm  i / yarn install```
 
-```npm dev/ yarn dev```
+```npm run dev/ yarn dev```
 
 Note: Run all the SQL commands in /server/db/db.sql before starting the backend server.
 
